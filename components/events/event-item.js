@@ -37,7 +37,7 @@ const EventItem = (props) => {
 								<use xlinkHref="/images/sprite.svg#icon-calender"></use>
 							</svg>
 						</div>
-						<address className="whitespace-pre-wrap mt-2 font-semibold text-gray-600">
+						<address className="whitespace-pre mt-2 font-semibold text-gray-600">
 							{formattedAddress}
 						</address>
 					</div>
