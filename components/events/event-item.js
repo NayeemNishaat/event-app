@@ -1,4 +1,5 @@
 import Button from "../ui/button";
+import Image from "next/image";
 
 const EventItem = (props) => {
 	const { title, image, date, location, id } = props;
@@ -14,9 +15,15 @@ const EventItem = (props) => {
 	const exploreLink = `/events/${id}`;
 
 	return (
-		<li className="flex justify-center rounded-xl overflow-hidden mb-10 last:mb-0 shadow-2xl">
-			<div className="w-2/5">
-				<img src={`/${image}`} alt={title} />
+		<li className="flex rounded-xl overflow-hidden mb-10 last:mb-0 shadow-2xl">
+			<div className="w-2/5 relative">
+				<Image
+					layout="responsive"
+					src={`/${image}`}
+					alt={title}
+					width={300}
+					height={200}
+				/>
 			</div>
 			<div className="w-3/5 p-5">
 				<div>

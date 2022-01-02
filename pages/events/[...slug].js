@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import EventList from "../../components/events/event-list";
 import ResultsTitle from "../../components/events/results-title";
 import Button from "../../components/ui/button";
+import Head from "next/head";
 
 // Important: The slug only kicks in if there are more than one dynamic segment in the URL!
 function FilteredEventsPage(props) {
@@ -29,20 +30,41 @@ function FilteredEventsPage(props) {
 					setLoadedEvents(events);
 				}
 			});
-	}, []);
+	}, []); // Inside this it will render for the first time!
+
+	// Important: At initial render we don't have anything inside router.query. So placing here will give an undefined error!
+	// const year = +filteredData[0];
+	// const month = +filteredData[1];
+
+	let pageHeadData = (
+		<Head>
+			<title>Filtered Events</title>
+			<meta name="description" content={`A list of filtered events!`} />
+		</Head>
+	);
 
 	if (!loadedEvents) {
 		return (
 			<>
+				{pageHeadData}
 				<p className="text-center text-4xl py-20">Loading!</p>;
-				<div className="text-center">
-					<Button link="/events">Show All Events</Button>
-				</div>
 			</>
 		);
 	}
+
+	// Important: That's why I'm placing it here after the events are loaded and the router is not empty!
 	const year = +filteredData[0];
 	const month = +filteredData[1];
+
+	pageHeadData = (
+		<Head>
+			<title>Filtered Events</title>
+			<meta
+				name="description"
+				content={`All events for ${month}/${year}.`}
+			/>
+		</Head>
+	);
 
 	if (
 		isNaN(year) ||
@@ -54,6 +76,7 @@ function FilteredEventsPage(props) {
 	) {
 		return (
 			<>
+				{pageHeadData}
 				<p className="text-center text-4xl py-20">Invalid Filter!</p>;
 				<div className="text-center">
 					<Button link="/events">Show All Events</Button>
@@ -75,6 +98,7 @@ function FilteredEventsPage(props) {
 	if (!filteredEvents || filteredEvents.length === 0) {
 		return (
 			<>
+				{pageHeadData}
 				<p className="text-center text-4xl py-20">No Events Found!</p>
 				<div className="text-center">
 					<Button link="/events">Show All Events</Button>
@@ -88,6 +112,7 @@ function FilteredEventsPage(props) {
 
 	return (
 		<>
+			{pageHeadData}
 			<ResultsTitle date={date} />
 			<EventList items={filteredEvents} />
 		</>
