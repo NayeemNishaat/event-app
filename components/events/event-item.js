@@ -18,6 +18,8 @@ const EventItem = (props) => {
 		<li className="flex rounded-xl overflow-hidden mb-10 last:mb-0 shadow-2xl">
 			<div className="w-2/5 relative">
 				<Image
+					as="image"
+					priority
 					layout="responsive"
 					src={`/${image}`}
 					alt={title}

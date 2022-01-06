@@ -1,5 +1,7 @@
 // import { useRouter } from "next/router";
 // import { getEventById } from "../../dummy-data";
+import EventContent from "../../components/event-detail/event-content";
+import Comments from "../events/../../components/input/comments";
 import { getEventById, getFeaturedEvents } from "../../helpers/api-utils";
 import EventSummary from "../../components/event-detail/event-summary";
 import EventLogistics from "../../components/event-detail/event-logistics";
@@ -29,6 +31,10 @@ function EventDetailPage(props) {
 				image={event.image}
 				imageAlt={event.title}
 			/>
+			<EventContent>
+				<p>{event.description}</p>
+			</EventContent>
+			<Comments eventId={event.id} />
 		</>
 	);
 }
